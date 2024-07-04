@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.dto.LocationDTO;
 import com.dto.ProductDTO;
 
 public class ProductOneRepository {
@@ -57,7 +58,43 @@ public class ProductOneRepository {
 	}
 
 
+	public List<ProductDTO> searchProductsByCodeAndName(String productCode, String productName) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<ProductDTO> products = new ArrayList<>();
 
+        try {
+            con = ConnectionClass.getConnection();
+            String sql = "SELECT id, product_code, product_name, description, cat_id, deleted "
+                       + "FROM productone WHERE "
+                       + "(product_code LIKE ? OR ? IS NULL) "
+                       + "AND (product_name LIKE ? OR ? IS NULL) "
+                       + "AND deleted = FALSE";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, productCode != null ? "%" + productCode + "%" : null);
+            ps.setString(2, productCode);
+            ps.setString(3, productName != null ? "%" + productName + "%" : null);
+            ps.setString(4, productName);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                ProductDTO product = new ProductDTO();
+                product.setId(rs.getInt("id"));
+                product.setProductCode(rs.getString("product_code"));
+                product.setProductName(rs.getString("product_name"));
+                product.setDescription(rs.getString("description"));
+                product.setCategoryId(rs.getInt("cat_id"));
+                product.setDeleted(rs.getBoolean("deleted"));
+
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            System.out.println("Search Products: " + e.getMessage());
+        }
+        return products;
+    }
 	
 	public ProductDTO getProductById(int id) {
 	    ProductDTO productDTO = null;

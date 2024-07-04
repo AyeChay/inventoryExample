@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dto.CategoryDTO;
+import com.dto.LocationDTO;
 import com.dto.ProductDTO;
 import com.model.Product;
 import com.repository.CategoryRepository;
@@ -51,8 +52,15 @@ public class ProductController {
             model.addAttribute("categories", categoryRepo.getAllCategories());
             return "productRegister";
         }
-
         ProductDTO dto = modelMapper.map(productDTO, ProductDTO.class);
+        if (dto.getProductCode() == null || dto.getProductCode().trim().isEmpty()
+            || dto.getProductName()	==null || dto.getProductName().trim().isEmpty()
+            || dto.getDescription()==null || dto.getDescription().trim().isEmpty()) {
+            model.addAttribute("error", "Invalid!");
+            return "productRegister";
+        }
+
+        //ProductDTO dto = modelMapper.map(productDTO, ProductDTO.class);
         int result = productRepo.insertProduct(dto);
 
         if (result > 0) {
@@ -99,6 +107,24 @@ public class ProductController {
             model.addAttribute("error", "Failed to update warehouse. Please try again.");
             return "productEdit";
         }
+    }
+    
+    @PostMapping("/search")
+    public String searchProducts(@RequestParam(name = "productCode", required = false) String productCode,
+                                 @RequestParam(name = "productName", required = false) String productName,
+                                 Model model) {
+        List<ProductDTO> productList;
+
+        if ((productCode != null && !productCode.isEmpty()) || (productName != null && !productName.isEmpty())) {
+            productList = productRepo.searchProductsByCodeAndName(productCode, productName);
+        } else {
+            productList = productRepo.getAllProducts();
+        }
+
+        model.addAttribute("productList", productList);
+        model.addAttribute("searchTermCode", productCode);
+        model.addAttribute("searchTermName", productName);
+        return "productList"; 
     }
     
     @GetMapping(value="/deleteproduct/{id}")

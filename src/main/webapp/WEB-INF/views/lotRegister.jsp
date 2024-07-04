@@ -53,6 +53,7 @@
             <tr>
                 <td>Price:</td>
                 <td><form:input path="price"/></td>
+                
             </tr>
             <tr>
                 <td>Location:</td>

@@ -10,6 +10,9 @@
 </head>
 <body>
 	<h2>List of Lots</h2>
+	<a href="${pageContext.request.contextPath}/lot/register">
+        <button>Create New Lot</button>
+    </a>
     <table border="1">
         <tr>
             <th>ID</th>

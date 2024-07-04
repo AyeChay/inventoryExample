@@ -60,8 +60,18 @@ public class LotController {
             model.addAttribute("locations", locationRepo.getAllLocations());
             return "lotRegister";
         }
-
+        
         LotDTO dto = modelMapper.map(lot, LotDTO.class);
+        if ( dto.getQuantity() <= 0
+                || dto.getExpiredDate() == null
+                || dto.getDate() == null
+                || dto.getPrice() <= 0) {
+                model.addAttribute("error", "Invalid input. Please check all fields.");
+                
+                return "lotRegister";
+           }
+
+        
         int result = lotRepo.insertLot(dto);
 
         if (result > 0) {
