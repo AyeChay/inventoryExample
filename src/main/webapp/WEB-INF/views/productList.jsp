@@ -11,14 +11,15 @@
 <body>
 	
 	<h2>Product List</h2>
-	<a href="${pageContext.request.contextPath}/product/register">
-        <button>Create Product</button>
-    </a>
+	
     <form action="${pageContext.request.contextPath}/product/search" method="post">
 	    <input type="text" name="productCode" placeholder="Enter Product Code" value="${searchTermCode}">
 	    <input type="text" name="productName" placeholder="Enter Product Name" value="${searchTermName}">
 	    <button type="submit">Search</button>
 	</form>
+	<a href="${pageContext.request.contextPath}/product/register">
+        <button>Add Product</button>
+    </a>
     <table>
         <thead>
             <tr>

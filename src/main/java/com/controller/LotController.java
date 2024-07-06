@@ -70,7 +70,14 @@ public class LotController {
                 
                 return "lotRegister";
            }
+        
+        //boolean lotExists = lotRepo.checkExprireDate(dto.getExpiredDate().toString());
+        //double totalQuantity = 0;
 
+//        if (lotExists) {
+//        	model.addAttribute("error", "Expire date already exists. please choose a different name");
+//        	return "lotRegister";
+//        }
         
         int result = lotRepo.insertLot(dto);
 

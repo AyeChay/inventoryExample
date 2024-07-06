@@ -10,11 +10,15 @@
 </head>
 <body>
     <h2>Location List</h2>
+    
     <form action="${pageContext.request.contextPath}/location/search" method="post">
 	    <input type="text" name="name" placeholder="Enter Location Name" value="${searchTermName}">
 	    <input type="text" name="address" placeholder="Enter Location Address" value="${searchTermAddress}">
 	    <button type="submit">Search</button>
 	</form>
+	<a href="${pageContext.request.contextPath}/location/locationregister">
+        <button>Add Location</button>
+    </a>
     <table>
         <thead>
             <tr>

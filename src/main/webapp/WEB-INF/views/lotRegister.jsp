@@ -21,14 +21,7 @@
                 </td>
             </tr>
             
-            <tr>
-                <td>Category:</td>
-                <td>
-                    <form:select path="categoryId">
-                        <form:options items="${categories}" itemValue="id" itemLabel="name"/>
-                    </form:select>
-                </td>
-            </tr>
+           
             <tr>
                 <td>Quantity:</td>
                 <td><form:input path="quantity"/></td>

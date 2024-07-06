@@ -14,7 +14,11 @@
 	    <input type="text" name="description" placeholder="Enter Category Description" value="${searchTermDescription}">
 	    <button type="submit">Search</button>
 	</form>
+	
 	<h2>Category List</h2>
+	<a href="${pageContext.request.contextPath}/category/categoryregister">
+        <button>Add Category</button>
+    </a>
     <table>
         <thead>
             <tr>

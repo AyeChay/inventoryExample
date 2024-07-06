@@ -17,7 +17,6 @@
         <tr>
             <th>ID</th>
             <th>Product</th>
-            <th>Category</th>
             <th>Lot No</th>
             <th>Quantity</th>
             <th>UOM</th>
@@ -31,7 +30,6 @@
             <tr>
                 <td>${lot.p_id}</td>
                 <td>${lot.productName}</td>
-                <td>${lot.categoryName}</td>
                 <td>${lot.lotNo}</td>
                 <td>${lot.quantity}</td>
                 <td>${lot.uom}</td>
